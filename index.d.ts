@@ -198,7 +198,7 @@ declare namespace WAWebJS {
         ): Promise<string>;
 
         /** Cancels an active pairing code session and returns to QR code mode */
-        cancelPairingCode(): Promise<void>
+        cancelPairingCode(): Promise<void>;
 
         /** Force reset of connection state for the client */
         resetState(): Promise<void>;
@@ -211,10 +211,7 @@ declare namespace WAWebJS {
         ): Promise<Message>;
 
         /** Send a reaction to a specific messageId */
-        sendReaction(
-            messageId: string,
-            reaction: string,
-        ): Promise<void>;
+        sendReaction(messageId: string, reaction: string): Promise<void>;
 
         /** Sends a channel admin invitation to a user, allowing them to become an admin of the channel */
         sendChannelAdminInvite(
@@ -761,6 +758,18 @@ declare namespace WAWebJS {
             phoneNumber: string;
             showNotification?: boolean;
             intervalMs?: number;
+        };
+        /**
+         * When set, attaches to an existing Electron BrowserWindow or BrowserView
+         * instead of spawning a Puppeteer managed browser. WhatsApp Web is loaded
+         * into the target by `initialize()`.
+         *
+         * The library must be `require`d before `app.whenReady()` so that
+         * Chromium's remote debugging switch can be appended in time.
+         */
+        electron?: {
+            window?: import('electron').BrowserWindow;
+            view?: import('electron').BrowserView;
         };
     }
 
